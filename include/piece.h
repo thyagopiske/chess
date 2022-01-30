@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-
-class Square;
+#include "square.h"
 
 class Piece{
     protected:
