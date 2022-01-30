@@ -1,14 +1,15 @@
 #include <iostream>
-#include "board.h"
-#include "helper_functions.h"
 #include <string>
 #include <exception>
+#include "board.h"
+#include "helper_functions.h"
 
 int main()
 {
     int option;
     do
     {
+
         displayMenu();
         std::cin >> option;
         cleanBuffer();
@@ -29,18 +30,14 @@ int main()
                 {
                     gameBoard.display();
 
-                    std::string playerMove;
+                    std::string player_move;
                     do{
                         std::cout << "Please enter a valid move: ";
-                        std::getline(std::cin, playerMove);
-                    } while(gameBoard.isMove(playerMove) == false && playerMove != "q");
-                    if(playerMove == "q") break;
+                        std::getline(std::cin, player_move);
+                    } while(gameBoard.isMove(player_move) == false && player_move != "q");
+                    if(player_move == "q") break;
 
-                    std::string initialPiecePosition = playerMove.substr(0,2);
-                    std::string finalPiecePosition = playerMove.substr(3,2);
-
-
-                    std::cout << initialPiecePosition << " " << finalPiecePosition << std::endl;
+                    gameBoard.movePiece(player_move);
 
                     gameBoard.switchTurn();
                 }

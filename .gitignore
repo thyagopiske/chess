@@ -1,5 +1,6 @@
 ### CodeBlocks ###
 # specific to CodeBlocks IDE
+# .cbp file cannot be here!
 *.layout
 *.depend
 # generated directories

@@ -7,12 +7,13 @@
 #include "square.h"
 
 class Board{
-    std::string whosTurn="white";
+    std::string whos_turn = "white";
     public:
         Board();
         Square board[8][8];
         void display();
-        bool isMove(const std::string& _move);
+        void movePiece(const std::string& player_move);
+        bool isMove(const std::string& player_move);
         void switchTurn();
 };
 
