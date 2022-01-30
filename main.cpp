@@ -24,22 +24,23 @@ int main()
         {
             case 1:
             {
-                Board gameBoard;
+                Board game_board;
 
                 while(true)
                 {
-                    gameBoard.display();
+                    game_board.display();
 
                     std::string player_move;
                     do{
                         std::cout << "Please enter a valid move: ";
                         std::getline(std::cin, player_move);
-                    } while(gameBoard.isMove(player_move) == false && player_move != "q");
+                    } while(game_board.isMove(player_move) == false && player_move != "q");
                     if(player_move == "q") break;
 
-                    gameBoard.movePiece(player_move);
+                    game_board.movePiece(player_move);
 
-                    gameBoard.switchTurn();
+                    std::cout << std::endl;
+                    game_board.switchTurn();
                 }
             }
                 break;
