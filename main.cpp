@@ -37,14 +37,9 @@ int main()
                     } while(game_board.isMove(player_move) == false && player_move != "q");
                     if(player_move == "q") break;
 
-                    game_board.movePiece("d1 d4");
+                    game_board.movePiece(player_move);
 
-                    //TEMP
-                    auto possible_moves = game_board.board[3][3].pPiece->getPossibleMoves(game_board.board);
-                    for(auto& x : possible_moves)
-                        std::cout << x;
                     std::cout << std::endl;
-
                     game_board.switchTurn();
                 }
             }

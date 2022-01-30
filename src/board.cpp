@@ -9,6 +9,7 @@
 #include "queen.h"
 #include "king.h"
 #include <memory>
+#include <vector>
 
 //Initializes the Board
 Board::Board(){
@@ -197,4 +198,40 @@ void Board::movePiece(const std::string& player_move){
     board[i1][j1].symbol = ' ';
 
 
+}
+
+bool Board::isKingInCheck()
+{
+    //Find the king's position
+    int i, j;
+    bool found_coordinate = false;
+    for(i=0; i<8; i++){
+        for(j=0; j<8; j++){
+            if(board[i][j].pPiece != nullptr)
+            {
+                if(board[i][j].pPiece->getColor() == whos_turn && board[i][j].pPiece->getSymbol() == 'K'){
+                    found_coordinate = true;
+                    break;
+                }
+            }
+        }
+        if(found_coordinate) break;
+    }
+
+    //Now board[i][j].pPiece->getCurrentPosition() represents the king's square
+
+
+    //Verify if there's any opponent piece threatening the king's square
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getColor() != whos_turn)
+                    if(!square.pPiece->getPossibleMoves(board).empty())
+                        for(auto& possible_move : square.pPiece->getPossibleMoves(board))
+                            if(possible_move == board[i][j].pPiece->getCurrentPosition())
+                                return true;
+
+
+
+    return false;
 }

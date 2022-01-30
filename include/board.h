@@ -14,6 +14,7 @@ class Board{
         void display();
         void movePiece(const std::string& player_move);
         bool isMove(const std::string& player_move);
+        bool isKingInCheck();
         void switchTurn();
 };
 

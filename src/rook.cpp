@@ -25,69 +25,71 @@ std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
     std::vector<std::string> possible_moves;
 
     //Moving up
-    for(int i = piece_line + 1; i < 8; i++){
-        if(board[i][piece_column].pPiece != nullptr)
-        {
-            if(board[i][piece_column].pPiece->getColor() == color)
-                break;
+    if(piece_line < 7)
+        for(int i = piece_line + 1; i < 8; i++){
+            if(board[i][piece_column].pPiece != nullptr)
+            {
+                if(board[i][piece_column].pPiece->getColor() == color)
+                    break;
 
-            possible_moves.push_back(board[i][piece_column].coordinate);
-            break;
+                possible_moves.push_back(board[i][piece_column].coordinate);
+                break;
+            }
+            else{ //if it's an empty square, add it to "possible_moves"
+                possible_moves.push_back(board[i][piece_column].coordinate);
+            }
         }
-        else{ //if it's an empty square, add it to "possible_moves"
-            possible_moves.push_back(board[i][piece_column].coordinate);
-        }
-    }
 
 
     //Moving down
+    if(piece_line > 0)
+        for(int i = piece_line - 1; i >= 0; i--){
+            if(board[i][piece_column].pPiece != nullptr)
+            {
+                if(board[i][piece_column].pPiece->getColor() == color)
+                    break;
 
-    for(int i = piece_line - 1; i >= 0; i--){
-        if(board[i][piece_column].pPiece != nullptr)
-        {
-            if(board[i][piece_column].pPiece->getColor() == color)
+                possible_moves.push_back(board[i][piece_column].coordinate);
                 break;
-
-            possible_moves.push_back(board[i][piece_column].coordinate);
-            break;
+            }
+            else{
+                possible_moves.push_back(board[i][piece_column].coordinate);
+            }
         }
-        else{
-            possible_moves.push_back(board[i][piece_column].coordinate);
-        }
-    }
 
 
     //Moving right
+    if(piece_column < 7)
+        for(int j = piece_column + 1; j < 8; j++){
+            if(board[piece_line][j].pPiece != nullptr)
+            {
+                if(board[piece_line][j].pPiece->getColor() == color)
+                    break;
 
-    for(int j = piece_column + 1; j < 8; j++){
-        if(board[piece_line][j].pPiece != nullptr)
-        {
-            if(board[piece_line][j].pPiece->getColor() == color)
+                possible_moves.push_back(board[piece_line][j].coordinate);
                 break;
-
-            possible_moves.push_back(board[piece_line][j].coordinate);
-            break;
+            }
+            else{
+                possible_moves.push_back(board[piece_line][j].coordinate);
+            }
         }
-        else{
-            possible_moves.push_back(board[piece_line][j].coordinate);
-        }
-    }
 
 
     //Moving left
-    for(int j = piece_column - 1; j >= 0; j--){
-        if(board[piece_line][j].pPiece != nullptr)
-        {
-            if(board[piece_line][j].pPiece->getColor() == color)
-                break;
+    if(piece_column > 0)
+        for(int j = piece_column - 1; j >= 0; j--){
+            if(board[piece_line][j].pPiece != nullptr)
+            {
+                if(board[piece_line][j].pPiece->getColor() == color)
+                    break;
 
-            possible_moves.push_back(board[piece_line][j].coordinate);
-            break;
+                possible_moves.push_back(board[piece_line][j].coordinate);
+                break;
+            }
+            else{
+                possible_moves.push_back(board[piece_line][j].coordinate);
+            }
         }
-        else{
-            possible_moves.push_back(board[piece_line][j].coordinate);
-        }
-    }
 
     return possible_moves;
 }
