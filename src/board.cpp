@@ -125,6 +125,33 @@ void Board::display()
 bool Board::isMove(const std::string& player_move)
 {
 
+    std::string initial_position = player_move.substr(0,2);
+    std::string final_position = player_move.substr(3,2);
+
+    int i1, j1;
+    bool found_coordinate = false;
+    for(i1=0; i1<8; i1++){
+        for(j1=0; j1<8; j1++){
+            if(initial_position == board[i1][j1].coordinate){
+                found_coordinate = true;
+                break;
+            }
+        }
+        if(found_coordinate) break;
+    }
+
+    int i2, j2;
+    found_coordinate = false;
+    for(i2=0; i2<8; i2++){
+        for(j2=0; j2<8; j2++){
+            if(final_position == board[i2][j2].coordinate){
+                found_coordinate = true;
+                break;
+            }
+        }
+        if(found_coordinate) break;
+    }
+
     if(player_move.size() != 5) { std::cout << "Invalid move(1)\n"; return false; }
 
     if(
@@ -135,29 +162,69 @@ bool Board::isMove(const std::string& player_move)
         (player_move[2] != ' ')
     ) { std::cout << "Invalid move(2)\n"; return false; }
 
-    std::string initial_position = player_move.substr(0,2);
 
-    int i, j;
-    bool found_coordinate = false;
-    for(i=0; i<8; i++){
-        for(j=0; j<8; j++){
-            if(initial_position == board[i][j].coordinate){
-                found_coordinate = true;
-                break;
-            }
-        }
-        if(found_coordinate) break;
-    }
-
-
-    if(board[i][j].pPiece == nullptr){
+    if(board[i1][j1].pPiece == nullptr){
         std::cout << "There is no " << " piece on " << initial_position << std::endl;
         return false;
     }
-    else if(whos_turn != board[i][j].pPiece->getColor()){
+    else if(whos_turn != board[i1][j1].pPiece->getColor()){
         std::cout << "There is no " << whos_turn << " piece on " << initial_position << std::endl;
         return false;
     }
+
+    // ----------- check if the player is trying to put his own king in check -----------
+
+
+    //tries to make the move
+    std::unique_ptr<Piece> pAuxiliar = nullptr;
+    if(board[i2][j2].pPiece != nullptr){
+        pAuxiliar = std::move(board[i2][j2].pPiece);
+    }
+
+    board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+    board[i2][j2].pPiece->setCurrentPosition(final_position);
+    board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+    board[i1][j1].symbol = ' ';
+
+    if(isKingInCheck()){
+        std::cout << "You cannot put your own king in check!\n";
+
+        //undo the move
+        board[i1][j1].pPiece = std::move(board[i2][j2].pPiece);
+        board[i1][j1].pPiece->setCurrentPosition(initial_position);
+        board[i1][j1].symbol = board[i1][j1].pPiece->getSymbol();
+
+        if(pAuxiliar != nullptr){
+            board[i2][j2].pPiece = std::move(pAuxiliar);
+            board[i2][j2].pPiece->setCurrentPosition(final_position);
+            board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+        }
+        else{
+            board[i2][j2].symbol = ' ';
+        }
+
+        return false;
+    }
+    else{
+
+        //undo the move
+        board[i1][j1].pPiece = std::move(board[i2][j2].pPiece);
+        board[i1][j1].pPiece->setCurrentPosition(initial_position);
+        board[i1][j1].symbol = board[i1][j1].pPiece->getSymbol();
+
+        if(pAuxiliar != nullptr){
+            board[i2][j2].pPiece = std::move(pAuxiliar);
+            board[i2][j2].pPiece->setCurrentPosition(final_position);
+            board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+        }
+        else{
+            board[i2][j2].symbol = ' ';
+        }
+
+        return true;
+    }
+
+
 
     return true;
 }
@@ -219,7 +286,6 @@ bool Board::isKingInCheck()
     }
 
     //Now board[i][j].pPiece->getCurrentPosition() represents the king's square
-
 
     //Verify if there's any opponent piece threatening the king's square
     for(auto& line : board)
