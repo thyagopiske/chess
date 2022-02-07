@@ -1,6 +1,6 @@
 #include "bishop.h"
 
-bool Bishop::isValidMove(std::string final_position, const Square game_board[][8]){
+bool Bishop::isValidMove(const std::string& final_position, const Square board[][8]){
     return true; //TEMP
 };
 

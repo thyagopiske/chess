@@ -1,7 +1,7 @@
 #include "pawn.h"
 
 
-bool Pawn::isValidMove(std::string final_position, const Square game_board[][8]){
+bool Pawn::isValidMove(const std::string& final_position, const Square board[][8]){
     return true; //TEMP
 };
 

@@ -28,6 +28,7 @@ int main()
 
                 while(true)
                 {
+
                     game_board.display();
 
                     std::string player_move;
@@ -39,7 +40,7 @@ int main()
 
                     game_board.movePiece(player_move);
 
-                    std::cout << std::endl;
+
                     game_board.switchTurn();
                 }
             }
