@@ -21,10 +21,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line + 2][piece_column + 1].pPiece != nullptr)
             {
                 if(board[piece_line + 2][piece_column + 1].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line + 2][piece_column + 1].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line + 2][piece_column + 1].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line + 2][piece_column + 1].coordinate);
@@ -35,10 +35,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line + 2][piece_column - 1].pPiece != nullptr)
             {
                 if(board[piece_line + 2][piece_column - 1].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line + 2][piece_column - 1].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line + 2][piece_column - 1].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line + 2][piece_column - 1].coordinate);
@@ -53,10 +53,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line - 2][piece_column + 1].pPiece != nullptr)
             {
                 if(board[piece_line - 2][piece_column + 1].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line - 2][piece_column + 1].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line - 2][piece_column + 1].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line - 2][piece_column + 1].coordinate);
@@ -67,10 +67,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line - 2][piece_column - 1].pPiece != nullptr)
             {
                 if(board[piece_line - 2][piece_column - 1].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line - 2][piece_column - 1].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line - 2][piece_column - 1].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line - 2][piece_column - 1].coordinate);
@@ -85,10 +85,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line + 1][piece_column + 2].pPiece != nullptr)
             {
                 if(board[piece_line + 1][piece_column + 2].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line + 1][piece_column + 2].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line + 1][piece_column + 2].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line + 1][piece_column + 2].coordinate);
@@ -99,10 +99,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             if(board[piece_line - 1][piece_column + 2].pPiece != nullptr)
             {
                 if(board[piece_line - 1][piece_column + 2].pPiece->getColor() == color)
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line - 1][piece_column + 2].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line - 1][piece_column + 2].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line - 1][piece_column + 2].coordinate);
@@ -114,13 +114,11 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
     if(piece_column >= 2){
         //And then up
         if(piece_line <= 6){
-            if(board[piece_line + 1][piece_column - 2].pPiece != nullptr)
-            {
+            if(board[piece_line + 1][piece_column - 2].pPiece != nullptr){
                 if(board[piece_line + 1][piece_column - 2].pPiece->getColor() == color)
-                    break;
-
-                possible_moves.push_back(board[piece_line + 1][piece_column - 2].coordinate);
-                    break;
+                {
+                    possible_moves.push_back(board[piece_line + 1][piece_column - 2].coordinate);
+                }
             }
             else{
                 possible_moves.push_back(board[piece_line + 1][piece_column - 2].coordinate);
@@ -130,11 +128,10 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
         if(piece_column >= 1) {
             if(board[piece_line - 1][piece_column - 2].pPiece != nullptr)
             {
-                if(board[piece_line - 1][piece_column - 2].pPiece->getColor() == color)
-                    break;
+                if(board[piece_line - 1][piece_column - 2].pPiece->getColor() == color){
+                    possible_moves.push_back(board[piece_line - 1][piece_column - 2].coordinate);
+                }
 
-                possible_moves.push_back(board[piece_line - 1][piece_column - 2].coordinate);
-                    break;
             }
             else{
                 possible_moves.push_back(board[piece_line - 1][piece_column - 2].coordinate);
