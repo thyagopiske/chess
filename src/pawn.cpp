@@ -28,7 +28,7 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             //Moving up
             if(piece_line == 1) {
                 //Can move 1 or 2 squares forward
-                for(i = piece_line + 1; i < 3; i++)
+                for(int i = piece_line + 1; i < 3; i++)
                 {
                     if(board[i][piece_column].pPiece != nullptr){
                         break;
@@ -40,12 +40,10 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             }
             if(piece_line >= 2){
                 //Can only move 1 square forward
-                if(board[piece_line + 1][piece_column].pPiece != nullptr){
-                    break;
-                }
-                else{
+                if(board[piece_line + 1][piece_column].pPiece == nullptr){
                     possible_moves.push_back(board[piece_line + 1][piece_column].coordinate);
                 }
+
             }
             //Moving diagonally (right) to capture opponent piece
             if(piece_column < 7){
@@ -68,7 +66,7 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             //Moving up
             if(piece_line == 6) {
                 //Can move 1 or 2 squares forward
-                for(i = piece_line - 1; i < 5; i--)
+                for(int i = piece_line - 1; i < 5; i--)
                 {
                     if(board[i][piece_column].pPiece != nullptr){
                         break;
@@ -80,12 +78,10 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             }
             if(piece_line <= 5){
                 //Can only move 1 square forward
-                if(board[piece_line - 1][piece_column].pPiece != nullptr){
-                    break;
-                }
-                else{
+                if(board[piece_line - 1][piece_column].pPiece == nullptr){
                     possible_moves.push_back(board[piece_line - 1][piece_column].coordinate);
                 }
+
             }
             //Moving diagonally (right) to capture opponent piece
             if(piece_column > 0){
