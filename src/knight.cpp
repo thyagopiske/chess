@@ -2,17 +2,8 @@
 #include <algorithm>
 #include "knight.h"
 
-
-bool Knight::isValidMove(std::string final_position, const Square board[][8]){
-
-    std::vector<std::string> possible_moves = getPossibleMoves(board);
-
-    //Verify if the move is possible
-    if(std::find(possible_moves.begin(), possible_moves.end(), final_position) != possible_moves.end())
-        return true;
-
-
-    return false;
+bool Knight::isValidMove(const std::string& final_position, const Square board[][8]){
+    return true; //TEMP
 };
 
 std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){

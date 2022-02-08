@@ -2,15 +2,8 @@
 #include <algorithm>
 #include "bishop.h"
 
-bool Bishop::isValidMove(std::string final_position, const Square board[][8]){
-
-    std::vector<std::string> possible_moves = getPossibleMoves(board);
-
-    if(std::find(possible_moves.begin(), possible_moves.end(), final_position) != possible_moves.end())
-        return true;
-
-
-    return false;
+bool Bishop::isValidMove(const std::string& final_position, const Square board[][8]){
+    return true; //TEMP
 };
 
 std::vector<std::string> Bishop::getPossibleMoves(const Square board[][8]){

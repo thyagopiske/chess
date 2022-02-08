@@ -2,13 +2,13 @@
 #include <algorithm>
 #include "rook.h"
 
-bool Rook::isValidMove(std::string final_position, const Square board[][8]){
+bool Rook::isValidMove(const std::string& final_position, const Square board[][8]){
 
-    std::vector<std::string> possible_moves = getPossibleMoves(board);
-
-    //Verify if the move is possible
-    if(std::find(possible_moves.begin(), possible_moves.end(), final_position) != possible_moves.end())
-        return true;
+//    std::vector<std::string> possible_moves = getPossibleMoves(board);
+//
+//    //Verify if the move is possible
+//    if(std::find(possible_moves.begin(), possible_moves.end(), final_position) != possible_moves.end())
+//        return true;
 
 
     return false;
@@ -16,7 +16,7 @@ bool Rook::isValidMove(std::string final_position, const Square board[][8]){
 
 std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
 
-    /**Transforms char 'a' into int 0, char 'b' into int 1... etc
+    /**Turns char 'a' into int 0, char 'b' into int 1... etc
     in order to represent the columns as numbers between 0 and 7 instead of chars between a and h.**/
     int piece_column = (int) getCurrentPosition()[0] - 'a';
 

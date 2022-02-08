@@ -15,6 +15,9 @@ class Board{
         void movePiece(const std::string& player_move);
         bool isMove(const std::string& player_move);
         bool isKingInCheck();
+        bool putOwnKingInCheck(const std::string& initial_position, const std::string& final_position);
+        std::vector<std::string> getThreateningPiecesPosition();
+        bool isCheckmate();
         void switchTurn();
 };
 
