@@ -95,7 +95,7 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             }
         }
         //And then down
-        if(piece_column >= 1) {
+        if(piece_line >= 1) {
             if(board[piece_line - 1][piece_column + 2].pPiece != nullptr)
             {
                 if(board[piece_line - 1][piece_column + 2].pPiece->getColor() == color)
@@ -125,7 +125,7 @@ std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
             }
         }
         //And then down
-        if(piece_column >= 1) {
+        if(piece_line >= 1) {
             if(board[piece_line - 1][piece_column - 2].pPiece != nullptr)
             {
                 if(board[piece_line - 1][piece_column - 2].pPiece->getColor() == color){
