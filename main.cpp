@@ -31,6 +31,19 @@ int main()
 
                     game_board.display();
 
+                    if(game_board.isKingInCheck()){
+                        if(game_board.isCheckmate()){
+                            std::cout << "Checkmate! "
+                                        << game_board.getWhosTurn()
+                                        << " lost!"
+                                        << " Type any key to go back to main menu..."
+                                        << std::endl;
+                            char back_to_menu;
+                            std::cin >> back_to_menu;
+                            break;
+                        }
+                    }
+
                     std::string player_move;
                     do{
                         std::cout << "Please enter a valid move: ";
@@ -40,8 +53,9 @@ int main()
 
                     game_board.movePiece(player_move);
 
-
                     game_board.switchTurn();
+
+
                 }
             }
                 break;

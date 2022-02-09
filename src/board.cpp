@@ -178,8 +178,18 @@ bool Board::isMove(const std::string& player_move)
         return false;
     }
 
+    //TEMP
+    for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
+            std::cout << possible_move;
+    std::cout << std::endl;
 
-    return true;
+    for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
+        if(possible_move == board[i2][j2].coordinate)
+            return true;
+
+    std::cout << "Invalid move!" << std::endl;
+
+    return false;
 }
 
 void Board::switchTurn() { whos_turn = (whos_turn == "white"? "black" : "white"); }
@@ -431,3 +441,5 @@ std::vector<std::string> Board::getThreateningPiecesPosition(){
 
     return threatening_pieces_position;
 }
+
+std::string Board::getWhosTurn() const { return whos_turn; }

@@ -80,14 +80,14 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             //Moving diagonally (right) to capture opponent piece
             if(piece_column > 0){
                 if(board[piece_line - 1][piece_column - 1].pPiece != nullptr)
-                    if(board[piece_line - 1][piece_column - 1].pPiece->getColor() == "black"){
+                    if(board[piece_line - 1][piece_column - 1].pPiece->getColor() == "white"){
                         possible_moves.push_back(board[piece_line - 1][piece_column - 1].coordinate);
                     }
             }
             //Moving diagonally (left) to capture opponent piece
             if(piece_column < 7){
                 if(board[piece_line - 1][piece_column + 1].pPiece != nullptr)
-                    if(board[piece_line - 1][piece_column + 1].pPiece->getColor() == "black"){
+                    if(board[piece_line - 1][piece_column + 1].pPiece->getColor() == "white"){
                          possible_moves.push_back(board[piece_line - 1][piece_column + 1].coordinate);
                     }
             }

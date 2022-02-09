@@ -19,6 +19,7 @@ class Board{
         std::vector<std::string> getThreateningPiecesPosition();
         bool isCheckmate();
         void switchTurn();
+        std::string getWhosTurn() const;
 };
 
 #endif
