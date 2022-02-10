@@ -39,12 +39,20 @@ int main()
                             std::cout << "Checkmate! "
                                         << game_board.getWhosTurn()
                                         << " lost!"
-                                        << " Type any key to go back to main menu..."
-                                        << std::endl;
+                                        << " Type any key to go back to main menu...";
                             char back_to_menu;
                             std::cin >> back_to_menu;
                             break;
                         }
+                    }
+
+                    if(game_board.isDraw()){
+                        game_moves.push_back("0.5-0.5");
+                        std::cout << "Draw!\n"
+                                    << " Type any key to go back to main menu...";
+                        char back_to_menu;
+                        std::cin >> back_to_menu;
+                        break;
                     }
 
                     std::string player_move;

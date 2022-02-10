@@ -20,6 +20,7 @@ class Board{
         bool isCheckmate();
         void switchTurn();
         std::string getWhosTurn() const;
+        bool isDraw();
 };
 
 #endif

@@ -443,3 +443,31 @@ std::vector<std::string> Board::getThreateningPiecesPosition(){
 }
 
 std::string Board::getWhosTurn() const { return whos_turn; }
+
+bool Board::isDraw(){
+    bool is_stalemate = true;
+    bool only_kings = true;
+
+    //if a stalemate happens
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getColor() == whos_turn)
+                    if(!square.pPiece->getPossibleMoves(board).empty())
+                        is_stalemate = false;
+
+    if(is_stalemate)
+        if(!isKingInCheck())
+            return is_stalemate;
+
+
+    //if there are only the kings left on the board
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getSymbol() != 'K')
+                        only_kings = false;
+
+    return only_kings;
+
+}
