@@ -20,7 +20,7 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             //Moving up
             if(piece_line == 1) {
                 //Can move 1 or 2 squares forward
-                for(int i = piece_line + 1; i < 3; i++)
+                for(int i = piece_line + 1; i < 4; i++)
                 {
                     if(board[i][piece_column].pPiece != nullptr){
                         break;
@@ -39,15 +39,17 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             }
             //Moving diagonally (right) to capture opponent piece
             if(piece_column < 7){
-                if(board[piece_line + 1][piece_column + 1].pPiece->getColor() == "black"){
-                    possible_moves.push_back(board[piece_line + 1][piece_column + 1].coordinate);
-                }
+                if(board[piece_line + 1][piece_column + 1].pPiece != nullptr)
+                    if(board[piece_line + 1][piece_column + 1].pPiece->getColor() == "black"){
+                        possible_moves.push_back(board[piece_line + 1][piece_column + 1].coordinate);
+                    }
             }
             //Moving diagonally (left) to capture opponent piece
             if(piece_column > 0){
-                if(board[piece_line + 1][piece_column - 1].pPiece->getColor() == "black"){
-                     possible_moves.push_back(board[piece_line + 1][piece_column - 1].coordinate);
-                }
+                if(board[piece_line + 1][piece_column - 1].pPiece != nullptr)
+                    if(board[piece_line + 1][piece_column - 1].pPiece->getColor() == "black"){
+                         possible_moves.push_back(board[piece_line + 1][piece_column - 1].coordinate);
+                    }
             }
         }
     }
@@ -58,7 +60,7 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             //Moving up
             if(piece_line == 6) {
                 //Can move 1 or 2 squares forward
-                for(int i = piece_line - 1; i < 5; i--)
+                for(int i = piece_line - 1; i > 3; i--)
                 {
                     if(board[i][piece_column].pPiece != nullptr){
                         break;
@@ -77,15 +79,17 @@ std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
             }
             //Moving diagonally (right) to capture opponent piece
             if(piece_column > 0){
-                if(board[piece_line - 1][piece_column - 1].pPiece->getColor() == "black"){
-                    possible_moves.push_back(board[piece_line - 1][piece_column - 1].coordinate);
-                }
+                if(board[piece_line - 1][piece_column - 1].pPiece != nullptr)
+                    if(board[piece_line - 1][piece_column - 1].pPiece->getColor() == "white"){
+                        possible_moves.push_back(board[piece_line - 1][piece_column - 1].coordinate);
+                    }
             }
             //Moving diagonally (left) to capture opponent piece
             if(piece_column < 7){
-                if(board[piece_line - 1][piece_column + 1].pPiece->getColor() == "black"){
-                     possible_moves.push_back(board[piece_line - 1][piece_column + 1].coordinate);
-                }
+                if(board[piece_line - 1][piece_column + 1].pPiece != nullptr)
+                    if(board[piece_line - 1][piece_column + 1].pPiece->getColor() == "white"){
+                         possible_moves.push_back(board[piece_line - 1][piece_column + 1].coordinate);
+                    }
             }
         }
     }

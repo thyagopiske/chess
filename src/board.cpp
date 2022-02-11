@@ -178,8 +178,18 @@ bool Board::isMove(const std::string& player_move)
         return false;
     }
 
+    //TEMP
+    for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
+            std::cout << possible_move;
+    std::cout << std::endl;
 
-    return true;
+    for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
+        if(possible_move == board[i2][j2].coordinate)
+            return true;
+
+    std::cout << "Invalid move!" << std::endl;
+
+    return false;
 }
 
 void Board::switchTurn() { whos_turn = (whos_turn == "white"? "black" : "white"); }
@@ -430,4 +440,34 @@ std::vector<std::string> Board::getThreateningPiecesPosition(){
     }
 
     return threatening_pieces_position;
+}
+
+std::string Board::getWhosTurn() const { return whos_turn; }
+
+bool Board::isDraw(){
+    bool is_stalemate = true;
+    bool only_kings = true;
+
+    //if a stalemate happens
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getColor() == whos_turn)
+                    if(!square.pPiece->getPossibleMoves(board).empty())
+                        is_stalemate = false;
+
+    if(is_stalemate)
+        if(!isKingInCheck())
+            return is_stalemate;
+
+
+    //if there are only the kings left on the board
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getSymbol() != 'K')
+                        only_kings = false;
+
+    return only_kings;
+
 }
