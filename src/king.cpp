@@ -1,10 +1,5 @@
 #include "king.h"
 
-
-bool King::isValidMove(const std::string& final_position, const Square board[][8]){
-    return true; //TEMP
-};
-
 std::vector<std::string> King::getPossibleMoves(const Square board[][8]){
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
@@ -115,3 +110,7 @@ std::vector<std::string> King::getPossibleMoves(const Square board[][8]){
 
     return possible_moves;
 }
+
+void King::setHasMovedToTrue() { has_moved = true; }
+
+bool King::getHasMoved() { return has_moved; }

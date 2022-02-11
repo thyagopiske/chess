@@ -183,6 +183,19 @@ bool Board::isMove(const std::string& player_move)
             std::cout << possible_move;
     std::cout << std::endl;
 
+    if(board[i1][j1].pPiece->getSymbol() == 'K' && i1==i2){
+        if(j2 == j1+2){
+            if(!canShortCastle()) return false;
+
+            return true;
+         }
+        if(j2 == j1-2){
+            if(!canLongCastle()) return false;
+
+            return true;
+        }
+    }
+
     for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
         if(possible_move == board[i2][j2].coordinate)
             return true;
@@ -222,10 +235,87 @@ void Board::movePiece(const std::string& player_move){
         if(found_coordinate) break;
     }
 
-    board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
-    board[i2][j2].pPiece->setCurrentPosition(final_position);
-    board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
-    board[i1][j1].symbol = ' ';
+    if(board[i1][j1].pPiece->getSymbol() == 'K' && (j2 == j1+2 || j2 == j1-2)){
+        if(j2 == j1+2){
+            if(whos_turn == "white"){
+                //moves the king
+                board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+                board[i2][j2].pPiece->setCurrentPosition(final_position);
+                board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+                board[i1][j1].symbol = ' ';
+
+                //moves the rook
+                board[0][5].pPiece = std::move(board[0][7].pPiece);
+                board[0][5].pPiece->setCurrentPosition("f1");
+                board[0][5].symbol = 'R';
+                board[0][7].symbol = ' ';
+
+            }
+
+            if(whos_turn == "black"){
+                //moves the king
+                board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+                board[i2][j2].pPiece->setCurrentPosition(final_position);
+                board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+                board[i1][j1].symbol = ' ';
+
+                //moves the rook
+                board[7][5].pPiece = std::move(board[7][7].pPiece);
+                board[7][5].pPiece->setCurrentPosition("f8");
+                board[7][5].symbol = 'R';
+                board[7][7].symbol = ' ';
+            }
+         }
+        if(j2 == j1-2){
+            if(whos_turn == "white"){
+                //moves the king
+                board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+                board[i2][j2].pPiece->setCurrentPosition(final_position);
+                board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+                board[i1][j1].symbol = ' ';
+
+                //moves the rook
+                board[0][3].pPiece = std::move(board[0][0].pPiece);
+                board[0][3].pPiece->setCurrentPosition("d1");
+                board[0][3].symbol = 'R';
+                board[0][0].symbol = ' ';
+            }
+
+            if(whos_turn == "black"){
+                //moves the king
+                board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+                board[i2][j2].pPiece->setCurrentPosition(final_position);
+                board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+                board[i1][j1].symbol = ' ';
+
+                //moves the rook
+                board[7][3].pPiece = std::move(board[7][0].pPiece);
+                board[7][3].pPiece->setCurrentPosition("d8");
+                board[7][3].symbol = 'R';
+                board[7][0].symbol = ' ';
+            }
+        }
+    }
+    else{
+
+        if(board[i1][j1].pPiece->getSymbol() == 'K'){
+            auto& king = dynamic_cast<King&>(*board[i1][j1].pPiece);
+            if(!king.getHasMoved())
+                king.setHasMovedToTrue();
+        }
+
+        if(board[i1][j1].pPiece->getSymbol() == 'R'){
+            auto& rook = dynamic_cast<Rook&>(*board[i1][j1].pPiece);
+            if(!rook.getHasMoved())
+                rook.setHasMovedToTrue();
+        }
+
+        board[i2][j2].pPiece = std::move(board[i1][j1].pPiece);
+        board[i2][j2].pPiece->setCurrentPosition(final_position);
+        board[i2][j2].symbol = board[i2][j2].pPiece->getSymbol();
+        board[i1][j1].symbol = ' ';
+
+    }
 
 
 }
@@ -469,5 +559,124 @@ bool Board::isDraw(){
                         only_kings = false;
 
     return only_kings;
+
+}
+
+bool Board::canShortCastle(){
+
+    if(isKingInCheck()) return false;
+
+    if(whos_turn == "white"){
+        if(board[0][5].pPiece != nullptr || board[0][6].pPiece != nullptr) return false;
+
+        if(
+            board[0][4].pPiece->getSymbol() != 'K' ||
+            board[0][4].pPiece->getColor() != "white" ||
+            board[0][7].pPiece->getSymbol() != 'R' ||
+            board[0][7].pPiece->getColor() != "white"
+           ) return false;
+
+        auto& king = dynamic_cast<King&>(*board[0][4].pPiece);        auto& rook = dynamic_cast<Rook&>(*board[0][7].pPiece);
+
+        if(king.getHasMoved()) return false;
+        if(rook.getHasMoved()) return false;
+
+        for(auto& line : board)
+            for(auto& square : line)
+                if(square.pPiece != nullptr)
+                    if(square.pPiece->getColor() == "black")
+                        for(auto& possible_move : square.pPiece->getPossibleMoves(board))
+                            if(possible_move == board[0][5].coordinate || possible_move == board[0][6].coordinate)
+                                return false;
+
+        return true;
+    }
+
+    //Then it's blacks' turn
+
+    if(board[7][5].pPiece != nullptr || board[7][6].pPiece != nullptr) return false;
+
+    if(
+        board[7][4].pPiece->getSymbol() != 'K' ||
+        board[7][4].pPiece->getColor() != "black" ||
+        board[7][7].pPiece->getSymbol() != 'R' ||
+        board[7][7].pPiece->getColor() != "black"
+       ) return false;
+
+    auto& king = dynamic_cast<King&>(*board[7][4].pPiece);
+    auto& rook = dynamic_cast<Rook&>(*board[7][7].pPiece);
+
+    if(king.getHasMoved()) return false;
+    if(rook.getHasMoved()) return false;
+
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getColor() == "white")
+                    for(auto& possible_move : square.pPiece->getPossibleMoves(board))
+                        if(possible_move == board[7][5].coordinate || possible_move == board[7][6].coordinate)
+                            return false;
+
+    return true;
+
+}
+
+bool Board::canLongCastle(){
+
+    if(isKingInCheck()) return false;
+
+    if(whos_turn == "white"){
+        if(board[0][1].pPiece != nullptr || board[0][2].pPiece != nullptr || board[0][3].pPiece != nullptr) return false;
+
+        if(
+            board[0][4].pPiece->getSymbol() != 'K' ||
+            board[0][4].pPiece->getColor() != "white" ||
+            board[0][0].pPiece->getSymbol() != 'R' ||
+            board[0][0].pPiece->getColor() != "white"
+           ) return false;
+
+        auto& king = dynamic_cast<King&>(*board[0][4].pPiece);
+        auto& rook = dynamic_cast<Rook&>(*board[0][0].pPiece);
+
+        if(king.getHasMoved()) return false;
+        if(rook.getHasMoved()) return false;
+
+        for(auto& line : board)
+            for(auto& square : line)
+                if(square.pPiece != nullptr)
+                    if(square.pPiece->getColor() == "black")
+                        for(auto& possible_move : square.pPiece->getPossibleMoves(board))
+                            if(possible_move == board[0][2].coordinate || possible_move == board[0][3].coordinate)
+                                return false;
+
+        return true;
+    }
+
+    //Then it's blacks' turn
+
+    if(board[7][1].pPiece != nullptr || board[7][2].pPiece != nullptr || board[7][3].pPiece != nullptr) return false;
+
+    if(
+        board[7][4].pPiece->getSymbol() != 'K' ||
+        board[7][4].pPiece->getColor() != "black" ||
+        board[7][0].pPiece->getSymbol() != 'R' ||
+        board[7][0].pPiece->getColor() != "black"
+       ) return false;
+
+    auto& king = dynamic_cast<King&>(*board[7][4].pPiece);
+    auto& rook = dynamic_cast<Rook&>(*board[7][0].pPiece);
+
+    if(king.getHasMoved()) return false;
+    if(rook.getHasMoved()) return false;
+
+    for(auto& line : board)
+        for(auto& square : line)
+            if(square.pPiece != nullptr)
+                if(square.pPiece->getColor() == "white")
+                    for(auto& possible_move : square.pPiece->getPossibleMoves(board))
+                        if(possible_move == board[7][2].coordinate || possible_move == board[7][3].coordinate)
+                            return false;
+
+    return true;
 
 }

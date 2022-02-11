@@ -2,18 +2,6 @@
 #include <algorithm>
 #include "rook.h"
 
-bool Rook::isValidMove(const std::string& final_position, const Square board[][8]){
-
-//    std::vector<std::string> possible_moves = getPossibleMoves(board);
-//
-//    //Verify if the move is possible
-//    if(std::find(possible_moves.begin(), possible_moves.end(), final_position) != possible_moves.end())
-//        return true;
-
-
-    return false;
-};
-
 std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
 
     /**Turns char 'a' into int 0, char 'b' into int 1... etc
@@ -93,3 +81,7 @@ std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
 
     return possible_moves;
 }
+
+void Rook::setHasMovedToTrue() { has_moved = true; }
+
+bool Rook::getHasMoved() { return has_moved; }

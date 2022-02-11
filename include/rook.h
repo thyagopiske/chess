@@ -6,10 +6,12 @@
 #include "square.h"
 
 class Rook : public Piece{
+    bool has_moved = false;
     public:
         Rook(std::string color) : Piece(color, 'R') {}
-        bool isValidMove(const std::string& final_position, const Square board[][8]);
         std::vector<std::string> getPossibleMoves(const Square board[][8]);
+        bool getHasMoved();
+        void setHasMovedToTrue();
 };
 
 #endif

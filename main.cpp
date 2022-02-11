@@ -66,8 +66,6 @@ int main()
                     game_moves.push_back(player_move);
 
                     game_board.switchTurn();
-
-
                 }
 
                 char option;

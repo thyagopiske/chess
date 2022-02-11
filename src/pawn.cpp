@@ -2,10 +2,6 @@
 #include <algorithm>
 #include "pawn.h"
 
-bool Pawn::isValidMove(const std::string& final_position, const Square board[][8]){
-    return true; //TEMP
-};
-
 std::vector<std::string> Pawn::getPossibleMoves(const Square board[][8]){
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
