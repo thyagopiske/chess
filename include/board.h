@@ -21,6 +21,8 @@ class Board{
         void switchTurn();
         std::string getWhosTurn() const;
         bool isDraw();
+        bool canLongCastle();
+        bool canShortCastle();
 };
 
 #endif
