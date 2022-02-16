@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
-#include <windows.h> //CAN BE TEMP
-#include <stdio.h> //CAN BE TEMP
-#include <conio.h> //CAN BE TEMP
-#include <dos.h> //CAN BE TEMP
+#include <windows.h>
+#include <stdio.h>
+#include <conio.h>
 #include "piece.h"
 #include "pawn.h"
 #include "board.h"
@@ -117,16 +116,27 @@ Board::Board(){
 void Board::display()
 {
 
-    //printing the letters above the board
+    //Printing the letters above the board
     std::cout << "                                                 " << std::endl;
     std::cout << "   a     b     c     d     e     f     g     h   " << std::endl;
     std::cout << "                                                 " << std::endl;
 
-    for(int line_coordinate=7; line_coordinate>=0; line_coordinate--){ //a cada 3 linhas desenhadas, line_coordinate--
-        for(int subline=0; subline<3; subline++){ //tem q fazer um while formando 2 linhas seguidas, diminuir o line_coordinate
-            if(line_coordinate%2 == 0){//linhas pares = começa com preto
-                for(int column_coordinate=0; column_coordinate<8; column_coordinate++){ //comprimento da linha (48 caracteres)
-                    if(subline == 1){ //se a linha for a 2 vai printar a peça
+
+    //Printing the square pattern and pieces on the board
+/*
+        -- each column of the board is composed of 6 rectangles (alternating dark and light color)
+            - light: ASCII table character - (char) 219 - white rectangle
+            - dark: " " character (cmd´s background color)
+        -- character's width = (character's height)/2 -> square dimension = 6 x 3 characters
+        -- each sub line is composed of 48 (6 characters x 8 columns) rectangles
+        -- each rank (board line) is composed of 3 sub lines
+*/
+
+    for(int line_coordinate=7; line_coordinate>=0; line_coordinate--){
+        for(int subline=0; subline<3; subline++){
+            if(line_coordinate%2 == 0){ //odd ranks on the chess board begin with black squares
+                for(int column_coordinate=0; column_coordinate<8; column_coordinate++){
+                    if(subline == 1){
                         if(board[line_coordinate][column_coordinate].pPiece != nullptr){
                             if(column_coordinate %2 ==0 ){
                                 printBlackSquares(true, board[line_coordinate][column_coordinate].symbol, board[line_coordinate][column_coordinate].pPiece->getColor());
@@ -157,9 +167,9 @@ void Board::display()
 
                 std::cout << std::endl;
             }
-            if(line_coordinate%2 != 0){ //linhas ímpares = começa em branco
-                for(int column_coordinate=0; column_coordinate<8; column_coordinate++){ //comprimento da linha (48 caracteres)
-                        if(subline == 1){ //se a linha for a 2 vai printar a peça
+            if(line_coordinate%2 != 0){ //even ranks on the chess board begin with white squares
+                for(int column_coordinate=0; column_coordinate<8; column_coordinate++){
+                        if(subline == 1){
                             if(board[line_coordinate][column_coordinate].pPiece != nullptr){
                                 if(column_coordinate %2 ==0 ){
                                     printWhiteSquares(true, board[line_coordinate][column_coordinate].symbol, board[line_coordinate][column_coordinate].pPiece->getColor());
@@ -754,6 +764,7 @@ bool Board::canLongCastle(){
 
 }
 
+//Function used to print the black squares
 void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_color){
 
     HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -762,7 +773,7 @@ void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_
         for(int i=0; i<6; i++){
             if(i == 2){
                 if(piece_color == "black"){
-                    SetConsoleTextAttribute(h,24);
+                    SetConsoleTextAttribute(h,24); //Function used to change the color of black pieces
                     std::cout << symbol;
                     SetConsoleTextAttribute(h,264);
                 }
@@ -782,6 +793,7 @@ void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_
     }
 }
 
+//Function used to print the white squares
 void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_color){
 
     HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -790,7 +802,7 @@ void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_
         for(int i=0; i<6; i++){
             if(i == 2){
                 if(piece_color == "black"){
-                    SetConsoleTextAttribute(h,24);
+                    SetConsoleTextAttribute(h,24); //Function used to change the color of black pieces
                     std::cout << symbol;
                     SetConsoleTextAttribute(h,264);
                 }
@@ -799,7 +811,7 @@ void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_
                 }
             }
             else{
-                SetConsoleTextAttribute(h,24);
+                SetConsoleTextAttribute(h,24); //Function used to change the color of white rectangles
                 std::cout << (char) 219;
                 SetConsoleTextAttribute(h, 264);
             }
