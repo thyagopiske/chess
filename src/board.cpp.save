@@ -391,6 +391,29 @@ void Board::movePiece(const std::string& player_move){
 
     }
 
+    for(int j1= 0, j2 = 0; j1 <8 && j2 < 8; j1++, j2++){
+        if(whos_turn == "white"){
+            //White pawn promotion
+            if(board[6][j1].pPiece->getSymbol() == 'p'){
+                if(j2 == j1 || j2 == j1 + 1 || j2 == j1 - 1){
+                    board[7][j2].pPiece = std::make_unique<Queen>("white");
+                    board[7][j2].pPiece->setCurrentPosition(final_position);
+                    board[7][j2].symbol = board[7][j2].pPiece->getSymbol();
+                }
+            }
+        }
+        //Black pawn promotion
+        if(whos_turn == "black"){
+            if(board[1][j1].pPiece->getSymbol() == 'p'){
+                if(j2 == j1 || j2 == j1 + 1 || j2 == j1 - 1){
+                    board[0][j2].pPiece = std::make_unique<Queen>("black");
+                    board[0][j2].pPiece->setCurrentPosition(final_position);
+                    board[0][j2].symbol = board[0][j2].pPiece->getSymbol(); //LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+                }
+            }
+        }
+    }
+
 }
 
 bool Board::isKingInCheck()
