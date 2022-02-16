@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include <windows.h>
-#include <stdio.h>
-#include <conio.h>
+#include <windows.h> 
+#include <stdio.h> 
+#include <conio.h> 
 #include "piece.h"
 #include "pawn.h"
 #include "board.h"
@@ -764,7 +764,7 @@ bool Board::canLongCastle(){
 
 }
 
-//Function used to print the black squares
+//function used to print the black squares
 void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_color){
 
     HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -773,7 +773,7 @@ void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_
         for(int i=0; i<6; i++){
             if(i == 2){
                 if(piece_color == "black"){
-                    SetConsoleTextAttribute(h,24); //Function used to change the color of black pieces
+                    SetConsoleTextAttribute(h,24); //function used to change the color of black pieces
                     std::cout << symbol;
                     SetConsoleTextAttribute(h,264);
                 }
@@ -802,7 +802,7 @@ void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_
         for(int i=0; i<6; i++){
             if(i == 2){
                 if(piece_color == "black"){
-                    SetConsoleTextAttribute(h,24); //Function used to change the color of black pieces
+                    SetConsoleTextAttribute(h,24); //function used to change the color of black pieces
                     std::cout << symbol;
                     SetConsoleTextAttribute(h,264);
                 }
@@ -811,7 +811,7 @@ void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_
                 }
             }
             else{
-                SetConsoleTextAttribute(h,24); //Function used to change the color of white rectangles
+                SetConsoleTextAttribute(h,24); //function used to change the color of white rectangles
                 std::cout << (char) 219;
                 SetConsoleTextAttribute(h, 264);
             }
