@@ -3,7 +3,7 @@
 #include "bishop.h"
 
 
-std::vector<std::string> Bishop::getPossibleMoves(const Square board[][8]){
+std::vector<std::string> Bishop::getPossibleMoves(const Square board[][8]) const{
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
 

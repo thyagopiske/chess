@@ -108,7 +108,7 @@ int main()
 
 
                 char option;
-                std::cout << "Do you want to save the game in a file? (y/n)\n";
+                std::cout << "Do you want to save the game in a file? (y/n): ";
                 std::cin >> option;
                 cleanBuffer();
                 while(option != 'y' && option != 'n'){

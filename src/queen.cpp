@@ -1,6 +1,6 @@
 #include "queen.h"
 
-std::vector<std::string> Queen::getPossibleMoves(const Square board[][8]){
+std::vector<std::string> Queen::getPossibleMoves(const Square board[][8]) const{
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
     int piece_line = (int) getCurrentPosition()[1] - '1';

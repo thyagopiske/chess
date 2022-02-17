@@ -1,6 +1,6 @@
 #include "king.h"
 
-std::vector<std::string> King::getPossibleMoves(const Square board[][8]){
+std::vector<std::string> King::getPossibleMoves(const Square board[][8]) const{
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
     int piece_line = (int) getCurrentPosition()[1] - '1';
@@ -113,4 +113,4 @@ std::vector<std::string> King::getPossibleMoves(const Square board[][8]){
 
 void King::setHasMovedToTrue() { has_moved = true; }
 
-bool King::getHasMoved() { return has_moved; }
+bool King::getHasMoved() const { return has_moved; }

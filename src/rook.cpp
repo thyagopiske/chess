@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "rook.h"
 
-std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
+std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]) const{
 
     /**Turns char 'a' into int 0, char 'b' into int 1... etc
     in order to represent the columns as numbers between 0 and 7 instead of chars between a and h.**/
@@ -84,4 +84,4 @@ std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]){
 
 void Rook::setHasMovedToTrue() { has_moved = true; }
 
-bool Rook::getHasMoved() { return has_moved; }
+bool Rook::getHasMoved() const { return has_moved; }

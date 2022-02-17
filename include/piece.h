@@ -16,7 +16,7 @@ class Piece{
         std::string current_position;
     public:
         Piece(std::string color, char symbol) : color(color), symbol(symbol) {}
-        virtual std::vector<std::string> getPossibleMoves(const Square board[][8]) =0;
+        virtual std::vector<std::string> getPossibleMoves(const Square board[][8]) const =0;
         char getSymbol() const;
         std::string getColor() const;
         std::string getCurrentPosition() const;

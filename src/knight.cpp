@@ -2,11 +2,7 @@
 #include <algorithm>
 #include "knight.h"
 
-bool Knight::isValidMove(const std::string& final_position, const Square board[][8]){
-    return true;
-};
-
-std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]){
+std::vector<std::string> Knight::getPossibleMoves(const Square board[][8]) const{
 
     int piece_column = (int) getCurrentPosition()[0] - 'a';
 
