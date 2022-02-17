@@ -45,10 +45,9 @@ void saveGameInFile(const std::vector<std::string>& game_moves)
         std::cin.ignore();
     }
     else{
-        char option;
         std::cout << "Could not open the file!\n";
-        std::cout << "Enter any key to go back to main menu: ";
-        std::cin >> option;
+        std::cout << "Press enter to go back to main menu... ";
+        std::cin.ignore();
     }
 
 }
@@ -75,21 +74,20 @@ void readGameFromFile()
             game_board.display();
 
             if(player_move == "1-0"){
-                std::cout << "White won! Enter any key to go back to main menu: ";
-                std::cin >> option;
+                std::cout << "White won! Press enter to go back to main menu... ";
+                std::cin.ignore();
                 game_file.close();
                 break;
             }
             else if(player_move == "0-1"){
-                std::cout << "Black won! Enter any key to go back to main menu: ";
-                std::cin >> option;
+                std::cout << "Black won! Press enter to go back to main menu... ";
+                std::cin.ignore();
                 game_file.close();
                 break;
             }
             else if(player_move == "0.5-0.5"){
-                char option;
-                std::cout << "Draw! Enter any key to go back to main menu: ";
-                std::cin >> option;
+                std::cout << "Draw! Press enter to go back to main menu... ";
+                std::cin.ignore();
                 game_file.close();
                 break;
             }
@@ -102,8 +100,8 @@ void readGameFromFile()
             }
             if(!game_board.isMove(player_move)){
                 std::cout << "An invalid move was found! Game cannot be reproduced!\n";
-                std::cout << "Enter any key to go back to main menu: ";
-                std::cin >> option;
+                std::cout << "Press enter to go back to main menu... ";
+                std::cin.ignore();
                 game_file.close();
                 break;
             }
@@ -116,7 +114,7 @@ void readGameFromFile()
     }
     else{
         std::cout << "File not found!" << std::endl;
-        std::cout << "Enter any key to go back to main menu: ";
-        std::cin >> option;
+        std::cout << "Press enter to go back to main menu... ";
+        std::cin.ignore();
     }
 }

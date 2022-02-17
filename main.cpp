@@ -39,9 +39,8 @@ int main()
                             std::cout << "Checkmate! "
                                         << game_board.getWhosTurn()
                                         << " lost!"
-                                        << " Type any key to go back to main menu...";
-                            char back_to_menu;
-                            std::cin >> back_to_menu;
+                                        << "Press enter to go back to main menu... ";
+                            std::cin.ignore();
                             break;
                         }
                     }
@@ -49,9 +48,8 @@ int main()
                     if(game_board.isDraw()){
                         game_moves.push_back("0.5-0.5");
                         std::cout << "Draw!\n"
-                                    << " Type any key to go back to main menu...";
-                        char back_to_menu;
-                        std::cin >> back_to_menu;
+                                << "Press enter to go back to main menu... ";
+                        std::cin.ignore();
                         break;
                     }
 
@@ -75,7 +73,7 @@ int main()
                     break;
                 }
 
-
+                //if user interrupts the game by typing "q"
                 if(game_moves.back() != "1-0" && game_moves.back() != "0-1" && game_moves.back() != "0.5-0.5")
                 {
                     int endgame_option;
@@ -105,7 +103,6 @@ int main()
                             break;
                     }
                 }
-
 
                 char option;
                 std::cout << "Do you want to save the game in a file? (y/n): ";

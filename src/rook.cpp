@@ -7,7 +7,6 @@ std::vector<std::string> Rook::getPossibleMoves(const Square board[][8]) const{
     /**Turns char 'a' into int 0, char 'b' into int 1... etc
     in order to represent the columns as numbers between 0 and 7 instead of chars between a and h.**/
     int piece_column = (int) getCurrentPosition()[0] - 'a';
-
     int piece_line = (int) getCurrentPosition()[1] - '1';
 
     std::vector<std::string> possible_moves;
