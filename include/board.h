@@ -10,6 +10,10 @@ class Board{
     std::string whos_turn = "white";
     void printBlackSquares(bool isTherePiece, char symbol=' ', std::string piece_color=" ");
     void printWhiteSquares(bool isTherePiece, char symbol=' ', std::string piece_color=" ");
+    bool putOwnKingInCheck(const std::string& initial_position, const std::string& final_position);
+    std::vector<std::string> getThreateningPiecesPosition();
+    bool canLongCastle();
+    bool canShortCastle();
     public:
         Board();
         Square board[8][8];
@@ -17,14 +21,10 @@ class Board{
         void movePiece(const std::string& player_move);
         bool isMove(const std::string& player_move);
         bool isKingInCheck();
-        bool putOwnKingInCheck(const std::string& initial_position, const std::string& final_position);
-        std::vector<std::string> getThreateningPiecesPosition();
         bool isCheckmate();
         void switchTurn();
-        std::string getWhosTurn() const;
         bool isDraw();
-        bool canLongCastle();
-        bool canShortCastle();
+        std::string getWhosTurn() const;
 };
 
 #endif

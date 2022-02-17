@@ -30,7 +30,7 @@ int main()
 
                 while(true)
                 {
-
+                    system("cls||clear");
                     game_board.display();
 
                     if(game_board.isKingInCheck()){
@@ -59,7 +59,7 @@ int main()
                     do{
                         std::cout << "Please enter a valid move: ";
                         std::getline(std::cin, player_move);
-                    } while(game_board.isMove(player_move) == false && player_move != "q");
+                    } while(player_move != "q" && game_board.isMove(player_move) == false);
                     if(player_move == "q") break;
 
                     game_board.movePiece(player_move);
@@ -67,6 +67,45 @@ int main()
 
                     game_board.switchTurn();
                 }
+
+                if(game_moves.empty())
+                {
+                    std::cout << "Press enter to go back to main menu... ";
+                    std::cin.ignore();
+                    break;
+                }
+
+
+                if(game_moves.back() != "1-0" && game_moves.back() != "0-1" && game_moves.back() != "0.5-0.5")
+                {
+                    int endgame_option;
+                    do{
+                        std::cout << "Result menu:\n"
+                                << "1 - White won.\n"
+                                << "2 - Black won.\n"
+                                << "3 - Draw.\n"
+                                << "Enter the game result: ";
+                        std::cin >> endgame_option;
+                        cleanBuffer();
+                        if(endgame_option < 1 || endgame_option > 3){
+                            std::cout << "Invalid option! Please enter a number between 1 and 3. \n";
+                        }
+                    } while(endgame_option < 1 || endgame_option > 3);
+
+                    switch(endgame_option)
+                    {
+                        case 1:
+                            game_moves.push_back("1-0");
+                            break;
+                        case 2:
+                            game_moves.push_back("0-1");
+                            break;
+                        default:
+                            game_moves.push_back("0.5-0.5");
+                            break;
+                    }
+                }
+
 
                 char option;
                 std::cout << "Do you want to save the game in a file? (y/n)\n";
@@ -79,30 +118,11 @@ int main()
                 }
 
                 if(option == 'y'){
-                    std::string file_path = "games/";
-                    std::string file_name;
-                    std::ofstream game_file;
-
-                    std::cout << "Enter the file name (without extension): ";
-                    std::getline(std::cin, file_name);
-
-                    file_path.append(file_name);
-                    file_path.append(".txt");
-
-                    game_file.open(file_path);
-                    if(game_file.is_open()){
-                        for(auto& player_move : game_moves)
-                            game_file << player_move << std::endl;
-
-                        game_file.close();
-                    }
-                    else{
-                        std::cout << "Could not open the file!\n";
-                        std::cout << "Enter any key to go back to main menu: ";
-                        std::cin >> option;
-                        break;
-                    }
-
+                    saveGameInFile(game_moves);
+                }
+                else{
+                    std::cout << "Press enter to go back to main menu... ";
+                    std::cin.ignore();
                 }
 
 
@@ -111,75 +131,9 @@ int main()
                 break;
             case 2:
             {
-                std::string file_path = "games/";
-                std::string file_name;
-                std::string player_move;
-                std::ifstream game_file;
-                char option;
-
-                std::cout << "Enter the file name (without extension) to open the game: ";
-                std::getline(std::cin, file_name);
-
-                file_path.append(file_name);
-                file_path.append(".txt");
-
-                game_file.open(file_path);
-                if(game_file.is_open()){
-                    Board game_board;
-
-                    while(std::getline(game_file, player_move)){
-                        game_board.display();
-
-                        if(player_move == "1-0"){
-                            std::cout << "White won! Enter any key to go back to main menu: ";
-                            std::cin >> option;
-                            game_file.close();
-                            break;
-                        }
-                        else if(player_move == "0-1"){
-                            std::cout << "Black won! Enter any key to go back to main menu: ";
-                            std::cin >> option;
-                            game_file.close();
-                            break;
-                        }
-                        else if(player_move == "0.5-0.5"){
-                            char option;
-                            std::cout << "Draw! Enter any key to go back to main menu: ";
-                            std::cin >> option;
-                            game_file.close();
-                            break;
-                        }
-
-                        std::cout << "Type 'p' to proceed or any other key to go back to main menu: ";
-                        std::cin >> option;
-                        if(option != 'p'){
-                            game_file.close();
-                            break;
-                        }
-                        if(!game_board.isMove(player_move)){
-                            std::cout << "An invalid move was found! Game cannot be reproduced!\n";
-                            std::cout << "Enter any key to go back to main menu: ";
-                            std::cin >> option;
-                            game_file.close();
-                            break;
-                        }
-                        game_board.movePiece(player_move);
-                        game_board.switchTurn();
-
-                    }
-
-                    game_file.close();
-                    break;
-                }
-                else{
-                    std::cout << "File not found!" << std::endl;
-                    std::cout << "Enter any key to go back to main menu: ";
-                    std::cin >> option;
-                    break;
-                }
+                readGameFromFile();
 
             }
-                break;
             default:
                 break;
         }
