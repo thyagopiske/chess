@@ -20,7 +20,7 @@ class Piece{
         char getSymbol() const;
         std::string getColor() const;
         std::string getCurrentPosition() const;
-        void setCurrentPosition(std::string position);
+        void setCurrentPosition(const std::string& position);
 
 };
 

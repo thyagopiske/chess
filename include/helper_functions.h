@@ -5,7 +5,7 @@ void displayMenu();
 
 void cleanBuffer();
 
-void saveGameInFile(const std::vector<std::string> game_moves);
+void saveGameInFile(const std::vector<std::string>& game_moves);
 
 void readGameFromFile();
 

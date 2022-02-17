@@ -113,7 +113,7 @@ Board::Board(){
     }
 }
 
-void Board::display()
+void Board::display() const
 {
 
     //Printing the letters above the board
@@ -261,11 +261,6 @@ bool Board::isMove(const std::string& player_move)
         std::cout << "You cannot put your own king in check!\n";
         return false;
     }
-
-    //TEMP
-    for(auto& possible_move : board[i1][j1].pPiece->getPossibleMoves(board))
-            std::cout << possible_move;
-    std::cout << std::endl;
 
     if(board[i1][j1].pPiece->getSymbol() == 'K' && i1==i2){
         if(j2 == j1+2){
@@ -573,7 +568,7 @@ bool Board::isCheckmate(){
 
 }
 
-std::vector<std::string> Board::getThreateningPiecesPosition(){
+std::vector<std::string> Board::getThreateningPiecesPosition() const{
 
     //Find the king's position
     int i, j;
@@ -765,7 +760,7 @@ bool Board::canLongCastle(){
 }
 
 //Function used to print the black squares
-void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_color){
+void Board::printBlackSquares(const bool isTherePiece, const char symbol, const std::string& piece_color) const{
 
     HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -794,7 +789,7 @@ void Board::printBlackSquares(bool isTherePiece, char symbol, std::string piece_
 }
 
 //Function used to print the white squares
-void Board::printWhiteSquares(bool isTherePiece, char symbol, std::string piece_color){
+void Board::printWhiteSquares(const bool isTherePiece, const char symbol, const std::string& piece_color) const{
 
     HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
 

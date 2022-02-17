@@ -20,7 +20,7 @@ void cleanBuffer()
     fflush(stdin);
 }
 
-void saveGameInFile(const std::vector<std::string> game_moves)
+void saveGameInFile(const std::vector<std::string>& game_moves)
 {
     std::string file_path = "games/";
     std::string file_name;

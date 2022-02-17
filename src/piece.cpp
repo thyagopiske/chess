@@ -7,4 +7,4 @@ std::string Piece::getColor() const { return color; };
 
 std::string Piece::getCurrentPosition() const { return current_position; };
 
-void Piece::setCurrentPosition(std::string position) { current_position = position; };
+void Piece::setCurrentPosition(const std::string& position) { current_position = position; };
