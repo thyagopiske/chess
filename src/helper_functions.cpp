@@ -7,7 +7,7 @@
 void displayMenu()
 {
     system("cls||clear");
-    std::cout << "\n\<------------MAIN MENU------------>\n\n"
+    std::cout << "\n\n<------------MAIN MENU------------>\n\n"
             << "1. Play a game (2 players)\n"
             << "2. Open a game\n"
             << "3. Quit\n"
