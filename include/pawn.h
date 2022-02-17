@@ -7,7 +7,7 @@
 class Pawn : public Piece{
     public:
         Pawn(std::string color) : Piece(color, 'p') {}
-        std::vector<std::string> getPossibleMoves(const Square board[][8]);
+        std::vector<std::string> getPossibleMoves(const Square board[][8]) const;
 };
 
 #endif
