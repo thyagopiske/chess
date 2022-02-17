@@ -208,6 +208,7 @@ void Board::display()
 
 bool Board::isMove(const std::string& player_move)
 {
+    if(player_move.size() != 5) { std::cout << "Invalid move(1)\n"; return false; }
 
     std::string initial_position = player_move.substr(0,2);
     std::string final_position = player_move.substr(3,2);
@@ -236,7 +237,6 @@ bool Board::isMove(const std::string& player_move)
         if(found_coordinate) break;
     }
 
-    if(player_move.size() != 5) { std::cout << "Invalid move(1)\n"; return false; }
 
     if(
         (player_move[0] < 'a' || player_move[0] > 'h') ||
